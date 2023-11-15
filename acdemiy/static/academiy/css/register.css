@@ -1,0 +1,22 @@
+body{
+    background-color: rgba(249, 246, 246, 0.814);
+    text-align: center;
+    color: black;
+}
+.serror{color: red;}
+.form{
+    width: 500px;
+}
+.main_div{
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+.register_button{
+    width: 100%;
+    padding: 5px;
+    color: white;
+    background-color: rgb(96, 246, 196);
+    border: 1px rgba(92, 92, 92, 0.392) solid;
+    border-radius: 5px;
+}

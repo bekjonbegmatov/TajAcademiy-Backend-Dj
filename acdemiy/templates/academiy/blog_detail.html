@@ -1,0 +1,35 @@
+{% extends "academiy/layout.html" %}
+{% load static %}
+{% block stili %}<link rel="stylesheet" href="{% static 'academiy/css/blog_detail.css' %}">{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>{{ blog.title }}</h1>
+        <br>
+        <img src="{{ blog.image.url }}" width="800">   
+        <br>
+        <br>
+        <div class="full_text">
+            <p>{{ blog.full_text|safe }}<p>
+        <span>{{ blog.created|date:'M d Y'}}</span>
+        </div>
+        <hr>
+        <h4>оставьте комментарии : </h4>
+        <form action='{% url "academiy:create_comment" %}' method="post">
+            <textarea name="comment" id="" cols="40" rows="5"></textarea><br>
+            <input type="hidden" name="blog_id" value="{{ blog.id }}">
+            {% csrf_token %}
+            <button class="btn btn-success" type="submit">сохранит</button>
+        </form>
+
+        <h4>комментарии : </h4>
+        {% for coment in coments %}
+            <div class="coments">
+                <h5>{{ coment.user.user.username }} : {{ coment.created|date:'F j Y, H:i' }}</h5>
+                <p>{{ coment.text }}</p>
+                <hr>
+            </div>
+        {% endfor %} 
+    </div>
+{% endblock %}

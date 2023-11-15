@@ -1,0 +1,16 @@
+a {
+  color: rgb(61, 179, 140);
+  text-decoration: none;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  text-align: left;
+}
+.blog_blok {
+  padding: 10px;
+  border-left: 1px rgb(61, 179, 140) solid;
+}

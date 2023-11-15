@@ -7,7 +7,7 @@ class UserForm(models.Model):
     surname = models.CharField(max_length=50 , blank=True)
     password = models.CharField(max_length=50)
     sesion_tocen = models.CharField(max_length=50 , blank=True)
-
+    score = models.IntegerField(default=100)
     created = models.DateTimeField(auto_now_add=True)
     
     class Meta:
@@ -16,7 +16,7 @@ class UserForm(models.Model):
 
     def __str__(self):
         return self.email
-        
+
 class CoursesCategory(models.Model):
     categoty = models.CharField(max_length=50)
     def __str__(self):
@@ -27,14 +27,14 @@ class CoursesModel(models.Model):
     title = models.CharField(max_length=50)
     category = models.ForeignKey(CoursesCategory, verbose_name=(""), on_delete=models.CASCADE)
     desriptions = models.TextField()
-    image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None)
+    image = models.ImageField(upload_to='media/courses/image', height_field=None, width_field=None, max_length=None)
     languages = models.CharField(max_length=200)
 
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = _("CoursesModel")
-        verbose_name_plural = _("CoursesModels")
+        verbose_name = ("CoursesModel")
+        verbose_name_plural = ("CoursesModels")
 
     def __str__(self):
         return self.title
@@ -42,7 +42,7 @@ class CoursesModel(models.Model):
 class CoursDetailesListModel(models.Model):
 
     title = models.CharField(max_length=50)
-    for_cours = models.ForeignKey(CoursesModel , verbose_name=_(""), on_delete=models.CASCADE)
+    for_cours = models.ForeignKey(CoursesModel , verbose_name=(""), on_delete=models.CASCADE)
     number = models.IntegerField()
     description = models.TextField()
     wideo_url = models.CharField(max_length=150)
@@ -50,20 +50,17 @@ class CoursDetailesListModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = _("CoursDetailesListModel")
-        verbose_name_plural = _("CoursDetailesListModels")
+        verbose_name = ("CoursDetailesListModel")
+        verbose_name_plural = ("CoursDetailesListModels")
 
     def __str__(self):
         return self.title
 
 class UserCoursesModel(models.Model):
 
-    user = models.ForeignKey( UserForm , verbose_name=_(""), on_delete=models.CASCADE)
-    course = models.ForeignKey( CoursesModel , verbose_name=_(""), on_delete=models.CASCADE) 
-    # last_couse_url = models.CharField(max_length=80)
-    # finish_progres = models.IntegerField(default=10 , blank=True)
-    # progress = models.IntegerField(default=0)
-
+    user = models.ForeignKey( UserForm , verbose_name=(""), on_delete=models.CASCADE)
+    course = models.ForeignKey( CoursesModel , verbose_name=(""), on_delete=models.CASCADE) 
+    score = models.IntegerField(default=1)
     created = models.DateTimeField(auto_now_add=False)
 
     def __str__(self):
@@ -73,9 +70,8 @@ class UserCoursesModel(models.Model):
         return reverse("UserCoursesModel_detail", kwargs={"pk": self.pk})
 
 class UserProgress (models.Model):
-    user = models.ForeignKey( UserForm , verbose_name=_(""), on_delete=models.CASCADE)
-    course = models.ForeignKey( CoursesModel , verbose_name=_(""), on_delete=models.CASCADE) 
-        # last_couse_url = models.CharField(max_length=80)
+    user = models.ForeignKey( UserForm , verbose_name=(""), on_delete=models.CASCADE)
+    course = models.ForeignKey( CoursesModel , verbose_name=(""), on_delete=models.CASCADE) 
     finish_progres = models.IntegerField(default=10 , blank=True)
     progress = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=False)
@@ -86,7 +82,7 @@ class UserProgress (models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to ='media' , height_field=None, width_field=None, max_length=None)
+    image = models.ImageField(upload_to ='media/blog/images' , height_field=None, width_field=None, max_length=None)
     url = models.CharField( max_length=100 , blank=True)
 
     created = models.DateTimeField(auto_now=False, auto_now_add=False)
@@ -95,8 +91,8 @@ class Blog(models.Model):
         return self.title
 
 class CommentsModel(models.Model):
-    user = models.ForeignKey( UserForm , verbose_name=_(""), on_delete=models.CASCADE)
-    course_id = models.ForeignKey(CoursDetailesListModel, verbose_name=_(""), on_delete=models.CASCADE)
+    user = models.ForeignKey( UserForm , verbose_name=(""), on_delete=models.CASCADE)
+    course_id = models.ForeignKey(CoursDetailesListModel, verbose_name=(""), on_delete=models.CASCADE)
     test = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 

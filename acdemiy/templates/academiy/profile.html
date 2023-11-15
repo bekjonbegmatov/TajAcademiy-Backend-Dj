@@ -1,0 +1,22 @@
+{% extends "academiy/layout.html" %}
+{% load static %}
+
+{% block stili %}<link rel="stylesheet" href="{% static 'academiy/css/profile.css' %}">{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Привет <span>{{ user.username }}</span> !</h1>
+        <hr>
+        <br>
+        <div class="row">
+            <div class="col">Ваш курсы :</div>
+            <div class="col">Ваши результаты :</div>
+        </div>
+        <hr>
+        <div>
+            <a href='{% url "academiy:logout" %}'>выйти</a>
+            {% comment %} <form action='{% url "logout" %}' method="post">{% csrf_token %} <button class="btn btn-light" type="submit">выйти</button></form> {% endcomment %}
+        </div>
+        
+    </div>
+{% endblock%}

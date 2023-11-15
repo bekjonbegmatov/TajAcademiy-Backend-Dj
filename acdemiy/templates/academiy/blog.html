@@ -1,0 +1,19 @@
+{% extends "academiy/layout.html" %}
+{% load static %}
+{% block stili %}<link rel="stylesheet" href="{% static 'academiy/css/blog.css' %}">{% endblock %}
+
+{% block body %}
+    <h1>Блог</h1>
+    <div class="container">
+    {% for blog in blogs %}
+        <div class='blog_blok'>
+            <h4> <a href="{% url 'academiy:detail' blog.id %}"> {{ blog.title }}</a> </h4>
+            <img src="{{ blog.image.url }}" width="400">   
+            <br><br>
+            <p>{{ blog.description }}</p>
+            {{ blog.created|date:'M d Y'}}
+            <a class="btn btn-success" href="{% url 'academiy:detail' blog.id %}">полный текст </a>
+        </div>
+
+    {% endfor %}
+{% endblock %}

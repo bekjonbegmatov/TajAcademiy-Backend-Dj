@@ -1,0 +1,59 @@
+
+{% extends "academiy/layout.html" %} 
+{% load static %}
+
+{% block stili %}<link rel="stylesheet" href="{% static 'academiy/css/register.css' %}">{% endblock %}
+{% block body %}
+
+
+<div class='main_div' >
+  <form class='form' action='{% url "academiy:register" %}' , method="post">
+    <h1>Регистрация</h1>
+    {% csrf_token %}
+    <div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          autofocus
+          type="text"
+          name="username"
+          placeholder="Имя ползователья"
+        />
+      </div>
+      <br>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="email"
+          name="email"
+          placeholder="Email"
+        />
+      </div>
+      <br>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="password"
+          name="password1"
+          placeholder="Парол"
+        />
+      </div>
+      <br>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="password"
+          name="password2"
+          placeholder="Потваердите парол"
+        />
+      </div>
+      <br>
+      <p>уже есть <a href='{% url "academiy:login" %}' >аккаунт</a> ?</p>
+
+      <span class='serror'>{{ error }}<span>
+      <button class="register_button" type="submit"> Регистрация<button>
+    </div>
+  </form>
+</div>
+
+{% endblock%}
