@@ -155,24 +155,23 @@ def blog_detail(request, pk):
     )
 
 def create_comment(request):
-    if request.method == ['POST'] and request.user.is_authenticated:
-        user = request.user
-        us_form = db.UserForm.objects.get(user=user)
-        blog_id = request.POST["blog_id"]
+    user = request.user
+    us_form = db.UserForm.objects.get(user=user)
+    blog_id = request.POST["blog_id"]
+    blog = db.Blog.objects.get(id=blog_id)
+    try:
+        coment = db.CommentsModel(
+            user=us_form, course_id=blog, text=request.POST["comment"]
+        )
+        coment.save()
         blog = db.Blog.objects.get(id=blog_id)
-        try:
-            coment = db.CommentsModel(
-                user=us_form, course_id=blog, text=request.POST["comment"]
-            )
-            coment.save()
-            blog = db.Blog.objects.get(id=blog_id)
-            coments = db.CommentsModel.objects.filter(course_id=blog_id)
-            return render(
-                request, "academiy/blog_detail.html", {"blog": blog, "coments": coments}
-            )
-        except IntegrityError:
-            return redirect("academiy:blog")
-    return render(request , 'academiy/error.html' , {'error' : 'походу вы не зарегистрированы пожалуйста зарегистрируйте'})
+        coments = db.CommentsModel.objects.filter(course_id=blog_id)
+        return render(
+            request, "academiy/blog_detail.html", {"blog": blog, "coments": coments}
+        )
+    except IntegrityError:
+        return redirect("academiy:blog")
+
     
 
 

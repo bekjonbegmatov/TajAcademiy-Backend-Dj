@@ -11,7 +11,7 @@
         <br>
         <br>
         <div class="full_text">
-            <p>{{ blog.full_text|safe }}<p>
+            <p>{{ blog.full_text|safe|linebreaksbr }}<p>
         <span>{{ blog.created|date:'M d Y'}}</span>
         </div>
         <hr>
