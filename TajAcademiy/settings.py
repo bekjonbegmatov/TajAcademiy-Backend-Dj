@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'acdemiy',
-    # 'api',
     'embed_video',
     'django.contrib.admin',
     'django.contrib.auth',

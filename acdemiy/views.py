@@ -146,7 +146,6 @@ def blog(request):
     blogs = db.Blog.objects.order_by("-created")
     return render(request, "academiy/blog.html", {"blogs": blogs})
 
-
 def blog_detail(request, pk):
     blog = db.Blog.objects.get(id=pk)
     coments = db.CommentsModel.objects.filter(course_id=pk)
@@ -171,9 +170,6 @@ def create_comment(request):
         )
     except IntegrityError:
         return redirect("academiy:blog")
-
-    
-
 
 # ----------------- TESTING --------------------#
 def testing(request):
@@ -215,8 +211,6 @@ def testing(request):
             return render(request, "academiy/testing.html", {"test": test})
     return render(request , 'academiy/error.html' , {'error' : 'походу вы не зарегистрированы пожалуйста зарегистрируйте'})
     
-
-
 # ------------ courses ------------ #
 def courses(request):
     # if request.user.is_authenticated:
