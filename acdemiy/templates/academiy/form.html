@@ -1,0 +1,59 @@
+{% extends "academiy/layout.html" %}
+{% load static %}
+{% block stili %}
+<link rel="stylesheet" href="{% static 'academiy/css/forum.css' %}">{% endblock %}
+
+{% block body %}
+<div class="container" style="text-align: left;">
+    {% if is_detail %}
+        <div >
+            <h1>{{ form.title }}</h1>
+            <hr>
+            <div class="alert alert-success">
+            <span >{% filter linebreaksbr %}{{ form.full_text|safe }}{% endfilter %}</span>
+            </div>
+            <hr>
+            {% if user.is_authenticated %}
+                <div>
+                    <h2>Ответить</h2>
+                    <form action='{% url "academiy:forumansver" %}' method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_id" value="{{ form.id }}">
+                        <textarea name="text" id="" cols="60" rows="5"></textarea>
+                        <br>
+                        <button type="submit">Ответить</button>
+                    </form>
+                    <hr>
+                </div>
+            {% else %}
+            <div>чтобы ответить пожалуйста зарегистрируйтесь</div>
+            {% endif %}
+
+            <h2>Ответы<h2>
+            {% for comment in comments %}
+                <h3>{{ comment.user.user.username }} : {{ comment.created|date:'H:i, m.j.Y ' }}</h3>
+                <p>{{ comment.text|linebreaksbr }}</p>
+                <hr>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div>
+            <h2>
+                <a href='{% url "academiy:forumcreate" %}'>
+                    Задайте свой вопрос +
+                </a>
+            </h2>
+        </div>
+        {% for forum in forums %}
+        <hr>
+        <a href='{% url "academiy:fumdetaile" forum.id %}'>
+            <h3>{{ forum.title }}</h3>
+            {{ forum.full_text|truncatechars:100 }}
+        </a>
+        <hr>
+        {% endfor %}
+    {% endif %}
+
+</div>
+{% endblock %}

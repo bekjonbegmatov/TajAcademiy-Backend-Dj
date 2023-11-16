@@ -23,7 +23,7 @@
           </a>
         <div class="form-inline">
             <a href='{% url "academiy:main" %}' class="btn btn-light">Главный</a>
-            <a href='{% url "academiy:courses" %}' class="btn btn-light">Форум</a>
+            <a href='{% url "academiy:forum" %}' class="btn btn-light">Форум</a>
             <a href='{% url "academiy:courses" %}' class="btn btn-light">Курсы</a>
             <a href='{% url "academiy:blog" %}' class="btn btn-light">Блог</a>
             {% if user.is_authenticated %}

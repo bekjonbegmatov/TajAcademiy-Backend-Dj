@@ -1,0 +1,24 @@
+{% extends "academiy/layout.html" %}
+{% load static %}
+{% block stili %}
+<link rel="stylesheet" href="{% static 'academiy/css/forum.css' %}">{% endblock %}
+
+{% block body %}
+    <div class="container forma" >
+        <h1> Добавить вопрос</h1>
+        <form action='{% url "academiy:forumcreate" %}' method="post">
+            <label  for="title">Напишите заголовок</label><br>
+            <input placeholder="заголовок" name="title" type="text" width="500">
+            <br>
+            <br>
+            <label for="title">Напишите вопрос</label><br>
+            <textarea placeholder="вопрос" name="fulltext" id="" cols="60" rows="10"></textarea>
+            <br>
+            {{ error }}
+            <br>
+            {% csrf_token %}
+
+            <button type="submit">Задавать</button>
+        </form>
+    </div>
+{% endblock %}

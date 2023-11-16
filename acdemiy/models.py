@@ -115,7 +115,7 @@ class Forum_Model(models.Model):
     title = models.CharField(max_length=100)
     full_text = models.TextField()
     url = models.CharField( max_length=100 , blank=True)
-    created = models.DateTimeField(auto_now=False, auto_now_add=False)
+    created = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return self.title

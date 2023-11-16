@@ -1,0 +1,24 @@
+.container{
+    text-align: left;;
+}
+h3{
+    color: rgb(61, 179, 140);
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+input{
+    width: 590px;
+}
+button{
+    width: 590px;
+    height: 35px;
+    border: 1px rgb(169, 167, 167) solid;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(61, 179, 140);
+}
+.forma{
+    text-align: center;
+}

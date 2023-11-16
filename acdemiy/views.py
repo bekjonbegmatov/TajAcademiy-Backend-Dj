@@ -155,22 +155,25 @@ def blog_detail(request, pk):
     )
 
 def create_comment(request):
-    user = request.user
-    us_form = db.UserForm.objects.get(user=user)
-    blog_id = request.POST["blog_id"]
-    blog = db.Blog.objects.get(id=blog_id)
-    try:
-        coment = db.CommentsModel(
-            user=us_form, course_id=blog, text=request.POST["comment"]
-        )
-        coment.save()
+    if request.method == ['POST'] and request.user.is_authenticated:
+        user = request.user
+        us_form = db.UserForm.objects.get(user=user)
+        blog_id = request.POST["blog_id"]
         blog = db.Blog.objects.get(id=blog_id)
-        coments = db.CommentsModel.objects.filter(course_id=blog_id)
-        return render(
-            request, "academiy/blog_detail.html", {"blog": blog, "coments": coments}
-        )
-    except IntegrityError:
-        return redirect("academiy:blog")
+        try:
+            coment = db.CommentsModel(
+                user=us_form, course_id=blog, text=request.POST["comment"]
+            )
+            coment.save()
+            blog = db.Blog.objects.get(id=blog_id)
+            coments = db.CommentsModel.objects.filter(course_id=blog_id)
+            return render(
+                request, "academiy/blog_detail.html", {"blog": blog, "coments": coments}
+            )
+        except IntegrityError:
+            return redirect("academiy:blog")
+    return render(request , 'academiy/error.html' , {'error' : 'походу вы не зарегистрированы пожалуйста зарегистрируйте'})
+    
 
 
 # ----------------- TESTING --------------------#
@@ -211,6 +214,8 @@ def testing(request):
                 )
             test = db.UserTest.objects.get(id=int(last_id) + 1)
             return render(request, "academiy/testing.html", {"test": test})
+    return render(request , 'academiy/error.html' , {'error' : 'походу вы не зарегистрированы пожалуйста зарегистрируйте'})
+    
 
 
 # ------------ courses ------------ #
@@ -263,7 +268,8 @@ def course_add_user(request):
             user_course_model = db.UserCoursesModel(user=user_form, course=cource, score=0)
             user_course_model.save()
             return redirect(f"/courses/full/{pk}/")
-    return redirect("academiy:register")
+    return render(request , 'academiy/error.html' , {'error' : 'походу вы не зарегистрированы пожалуйста зарегистрируйте'})
+
 
 def courses_full_watched(request):
     if request.method == "POST" and request.user.is_authenticated:
@@ -277,4 +283,60 @@ def courses_full_watched(request):
         uc_model.last_curs_id = lid
         uc_model.save()
         return redirect(f"/courses/full/{idd}/")
-    else : return redirect('academiy:main')
+    else : return render(request , 'academiy/error.html' , {'error' : 'походу вы не зарегистрированы пожалуйста зарегистрируйте'})
+
+
+#  ================= FORUM =================#
+def forum(request):
+    forms = db.Forum_Model.objects.order_by('-created')
+    context = {
+        'forums' : forms,
+        'is_detail' : False, 
+    }
+    return render(request , 'academiy/form.html' , context)
+
+def forum_create(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            return render(request , 'academiy/form_add.html')
+        title = request.POST['title']
+        text = request.POST['fulltext']
+        if title == '' or text == '':
+            return render(request , 'academiy/form_add.html' , {'error' : 'все являются обязательными для пополнения'})
+        try:
+            form = db.Forum_Model(title=title , full_text=text)
+            form.save()
+            return redirect('academiy:forum')
+        except:
+            return render(request , 'academiy/form_add.html' , {'error' : 'все являются обязательными для пополнения'})
+    return render(request , 'academiy/error.html' , {'error' : 'походу вы не зарегистрированы пожалуйста зарегистрируйте'})
+    
+def forum_detaile(request , pk):
+    try:
+        form = db.Forum_Model.objects.get(id=pk)
+        coments = db.Comments_Forum_Model.objects.filter(forum=form)
+        context = {
+            'form' : form,
+            'comments' : coments,
+            'is_detail' : True, 
+        } 
+    except:
+        return render(request , 'academiy/error.html' , {'error' : 'такая страница не существует 404'})
+
+    return render(request , 'academiy/form.html' , context)
+
+def forum_detaile_ansver(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        text = request.POST['text']
+        id_f = request.POST['form_id']
+        if text == '':
+            return forum_detaile(request , id_f)
+        user = db.UserForm.objects.get(user=request.user)
+        form = db.Forum_Model.objects.get(id=id_f)
+        try :
+            comment = db.Comments_Forum_Model(user=user , forum=form , text=text)
+            comment.save()
+            return forum_detaile(request , id_f)
+        except :
+            return forum_detaile(request , id_f)
+    return render(request , 'academiy/error.html' , {'error' : 'походу вы не зарегистрированы пожалуйста зарегистрируйте'})

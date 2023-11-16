@@ -19,9 +19,15 @@ urlpatterns = [
     path('detail/<int:pk>/' , views.blog_detail , name='detail'),
     path('create/comment' , views.create_comment , name='create_comment'),
     
-    #----------- Courses -------------#
+    #----------- Courses ------------ #
     path('courses' , views.courses , name='courses'),
     path('courses/full/<int:pk>/' , views.courses_full , name='full'),
     path('courses/full/wathch/<int:pk>' , views.courses_full_watch , name='watch'),
     path('courses/full/add' , views.courses_full_watched , name='watched'),
+
+    # --------- FORUM -------------- #
+    path('forum' , views.forum , name="forum"),
+    path('forum/new/create' , views.forum_create , name="forumcreate"),
+    path('forum/question/<int:pk>/' , views.forum_detaile , name="fumdetaile"),
+    path('forum/question/ansver/' , views.forum_detaile_ansver , name="forumansver"),
 ]
