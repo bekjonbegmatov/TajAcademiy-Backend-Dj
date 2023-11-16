@@ -1,0 +1,65 @@
+.container {
+  text-align: left;
+}
+.div_courses {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  text-align: left;
+}
+
+@keyframes h3_col {
+  0% {
+    color: rgb(0, 0, 0);
+  }
+  100% {
+    color: rgb(61, 179, 140);
+  }
+}
+@keyframes img_scale {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.01);
+  }
+}
+.courses {
+  border-left: 4px rgb(61, 179, 140) solid;
+  padding: 10px;
+}
+.courses:hover h3 {
+  animation-name: h3_col;
+  animation-duration: 0.5s;
+  color: rgb(61, 179, 140);
+}
+.courses:hover img {
+  animation-name: img_scale;
+  animation-duration: 0.5s;
+  transform: scale(1.01);
+}
+.courses a {
+  color: black;
+  text-decoration: none;
+}
+h1 {
+  color: rgb(61, 179, 140);
+}
+a {
+  color: rgb(61, 179, 140);
+  text-decoration: none;
+}
+.container_blog {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  text-align: left;
+}
+.blog_blok {
+  padding: 10px;
+  border-left: 2px rgb(61, 179, 140) solid;
+}

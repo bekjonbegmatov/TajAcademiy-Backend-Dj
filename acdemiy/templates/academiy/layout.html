@@ -21,16 +21,14 @@
         <a class="navbar-brand" href='{% url "academiy:main" %}'>
             <img src="{% static 'academiy/images/logo.png' %}" width="200" alt="">
           </a>
-        {% comment %} <a class="navbar-brand">TajAcademiy</a> {% endcomment %}
         <div class="form-inline">
+            <a href='{% url "academiy:main" %}' class="btn btn-light">Главный</a>
+            <a href='{% url "academiy:courses" %}' class="btn btn-light">Форум</a>
             <a href='{% url "academiy:courses" %}' class="btn btn-light">Курсы</a>
             <a href='{% url "academiy:blog" %}' class="btn btn-light">Блог</a>
             {% if user.is_authenticated %}
-            
                 <a href='{% url "academiy:profile" %}' class="btn btn-light">{{ user.username }}</a>
-
             {% else %}
-
                 <a href='{% url "academiy:login" %}' class="btn btn-light">Войти</a>
                 <a href='{% url "academiy:register" %}' class="btn btn-light">Регистрация</a>
         

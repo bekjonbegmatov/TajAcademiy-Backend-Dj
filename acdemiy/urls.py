@@ -4,18 +4,18 @@ from . import  views
 app_name = "academiy"
 
 urlpatterns = [
-    path('' , views.index , name='main'),                  # Main pagge
+    path('' , views.index , name='main'),                                      # Main pagge
 
     #------- AUTH PATHS ---------#
     path('login' , views.login , name='login'),
     path('logout' , views.logout , name='logout'),
     path('register' , views.register , name='register'),
 
-    path('profile' , views.profile , name='profile'),      # User Progile
+    path('profile' , views.profile , name='profile'),                          # User Progile
     path('user/testing' , views.testing , name='testing'),
     path('user/course/add/new' , views.course_add_user , name='add_cource'),
 
-    path('blog' , views.blog , name='blog'),               # Blog
+    path('blog' , views.blog , name='blog'),                                   # Blog
     path('detail/<int:pk>/' , views.blog_detail , name='detail'),
     path('create/comment' , views.create_comment , name='create_comment'),
     

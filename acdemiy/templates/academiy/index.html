@@ -1,5 +1,47 @@
-{% extends "academiy/layout.html" %}
+{% extends "academiy/layout.html" %} {% load static %} {% block stili %}<link
+  rel="stylesheet"
+  href="{% static 'academiy/css/ctyle.css' %}"
+/>{% endblock %} {% block body %}
 
-{% block body %}
-    <h1>Asosy sahifa</h1>
+<div class="container">
+  <h1>Лучшее место для изучения программирования</h1>
+  <hr />
+  <div>
+    <h2>рекомендуемые курсы :</h2>
+    <div class="div_courses">
+      {% for curs in courses %}
+      <div class="courses">
+        <a href='{% url "academiy:full" curs.id %}'>
+          <img src="{{ curs.image.url }}" width="600" height="425px" />
+          <br /><br />
+          <h3>{{ curs.title }}</h3>
+        </a>
+        {{ curs.desriptions|safe|truncatechars:150 }}
+      </div>
+      {% endfor %}
+    </div>
+    <br />
+    <br />
+    <h1>интересные темы</h1>
+    <br>
+    <br>
+    <div class="container_blog">
+        {% for blog in blogs %}
+        <div class="blog_blok">
+        <h4>
+            <a href="{% url 'academiy:detail' blog.id %}"> {{ blog.title }}</a>
+        </h4>
+        <img src="{{ blog.image.url }}" width="400" />
+        <br /><br />
+        <p>{{ blog.description }}</p>
+        {{ blog.created|date:'M d Y'}}
+        <a class="btn btn-success" href="{% url 'academiy:detail' blog.id %}"
+            >полный текст
+        </a>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
 {% endblock%}

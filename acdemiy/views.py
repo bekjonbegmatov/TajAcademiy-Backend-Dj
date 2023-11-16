@@ -8,6 +8,7 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import login as auth_login
+import random
 
 from . import models as db
 
@@ -15,7 +16,18 @@ from . import models as db
 
 
 def index(request):
-    return render(request=request, template_name="academiy/index.html")
+    courses = db.CoursesModel.objects.all()
+    blog = db.Blog.objects.all()
+    cor = []
+    blg = []
+    for i in range(4):
+        cor.append(random.choice(courses))
+        if i > 1 : blg.append(random.choice(blog))
+    context = {
+        "courses": cor,
+        'blogs': blg, 
+    }
+    return render(request=request, template_name="academiy/index.html" ,context=context)
 
 
 # --------- USER AUTH AND REGISTER --------------#

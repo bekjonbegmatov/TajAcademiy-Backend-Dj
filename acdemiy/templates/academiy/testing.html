@@ -13,7 +13,7 @@
         <br>
             <i class="fa fa-check" style="font-size:200px;color:rgb(61, 179, 140);"></i><br>
             <h2> Cпасибо за участие вы набрали : {{ can }} баллов</h2>
-            <p>ты первый можете выбрать для себя подходящий <a href='{% url "academiy:main" %}' >курс</a><p>
+            <p>ты первый можете выбрать для себя подходящий <a href='{% url "academiy:courses" %}' >курс</a><p>
         {% else %}
             <h1>{{ test.title }}</h1>
             <form action='{% url "academiy:testing" %}' method="post">

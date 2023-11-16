@@ -110,3 +110,24 @@ class UserCoursesModel(models.Model):
 
     def get_absolute_url(self):
         return reverse("UserCoursesModel_detail", kwargs={"pk": self.pk})
+    
+class Forum_Model(models.Model):
+    title = models.CharField(max_length=100)
+    full_text = models.TextField()
+    url = models.CharField( max_length=100 , blank=True)
+    created = models.DateTimeField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.title
+
+class Comments_Forum_Model(models.Model):
+    user = models.ForeignKey( UserForm , verbose_name=(""), on_delete=models.CASCADE)
+    forum = models.ForeignKey(Forum_Model, verbose_name=(""), on_delete=models.CASCADE)
+    text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.created)
+
+    def get_absolute_url(self):
+        return reverse("CommentsModel_detail", kwargs={"pk": self.pk})
