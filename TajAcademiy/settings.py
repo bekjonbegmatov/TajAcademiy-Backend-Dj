@@ -25,13 +25,14 @@ SECRET_KEY = 'django-insecure-#m7z%d-jcw^4q-#mw8k*vw6vr*scv&go*-x45qdpdwe#_q2*7z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
     'acdemiy',
     # 'api',
+    'embed_video',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

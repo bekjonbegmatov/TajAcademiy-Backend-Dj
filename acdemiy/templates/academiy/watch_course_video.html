@@ -1,0 +1,31 @@
+{% extends "academiy/layout.html" %}
+{% load static %}
+{% load embed_video_tags %}
+{% block stili %}<link rel="stylesheet" href="{% static 'academiy/css/watch_course_video.css' %}">{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+       <h1>{{ curs.title }}</h1>
+       {% video curs.video 'medium' %}
+        {% comment %} 
+        tiny (420x315)
+        small (480x360)
+        medium (640x480)
+        large (960x720)
+        huge (1280x960) 
+        {% endcomment %}
+        <br>
+        <br>
+        <p>{{ curs.description|safe }}</p>
+
+        <form action='{% url "academiy:watched" %}' method='post'>
+            {% csrf_token %}
+            <input type="hidden" name="cource_id" value="{{ curs.for_cours.id }}">
+            <input type="hidden" name="cource_last_id" value="{{ curs.id }}">
+            <button type="submit" class="btn btn-outline-success">посмотрел</button>
+        </form>
+    </div>
+    
+
+{% endblock %}

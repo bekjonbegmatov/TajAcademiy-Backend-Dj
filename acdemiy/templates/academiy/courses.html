@@ -1,0 +1,57 @@
+{% extends "academiy/layout.html" %} {% load static %} {% block stili %}<link
+  rel="stylesheet"
+  href="{% static 'academiy/css/courses.css' %}"
+/>{% endblock%} {% block body %}
+
+<div class="container">
+  {% if is_categoty %} 
+    <h1>Категория : {{ cat.categoty }}</h1>
+    <br>
+    <br>
+    <br>
+    <div class="div_courses">
+        {% for curs in courses %}
+        <div class="courses">
+          <a href='{% url "academiy:full" curs.id %}'>
+            <img src="{{ curs.image.url }}" width="600" height="425px" />
+            <br /><br />
+            <h3>{{ curs.title }}</h3>
+          </a>
+          {{ curs.desriptions|safe|truncatechars:150 }}
+        </div>
+        {% endfor %}
+      </div>
+  {% else %}
+  <h1 class="main_text">Kурсы</h1>
+
+  <h1>Категории</h1>
+  <br />
+  <div id="flex-container">
+  {% for catigory in cat %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="catg" value="{{ catigory.id }}">
+            <button class="cat_cur" type="submit" >{{ catigory.categoty }}</button>
+        </form>
+        {% endfor %}
+    </div>
+  <hr />
+  <br />
+  <h1 style="border-bottom: 2px rgb(61, 179, 140) soild">Популярные курсы :</h1>
+
+  <div class="div_courses">
+    {% for curs in courses %}
+    <div class="courses">
+      <a href='{% url "academiy:full" curs.id %}'>
+        <img src="{{ curs.image.url }}" width="600" height="425px" />
+        <br /><br />
+        <h3>{{ curs.title }}</h3>
+      </a>
+      {{ curs.desriptions|safe|truncatechars:150 }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock%}

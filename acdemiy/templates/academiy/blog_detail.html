@@ -15,13 +15,19 @@
         <span>{{ blog.created|date:'M d Y'}}</span>
         </div>
         <hr>
-        <h4>оставьте комментарии : </h4>
-        <form action='{% url "academiy:create_comment" %}' method="post">
-            <textarea name="comment" id="" cols="40" rows="5"></textarea><br>
-            <input type="hidden" name="blog_id" value="{{ blog.id }}">
-            {% csrf_token %}
-            <button class="btn btn-success" type="submit">сохранит</button>
-        </form>
+        
+        {% if user.is_authenticated %}
+            <h4>оставьте комментарии : </h4>
+            <form action='{% url "academiy:create_comment" %}' method="post">
+                <textarea name="comment" id="" cols="40" rows="5"></textarea><br>
+                <input type="hidden" name="blog_id" value="{{ blog.id }}">
+                {% csrf_token %}
+                <button class="btn btn-success" type="submit">сохранит</button>
+            </form>
+        {% else %}
+            <h4>чтобы оставить комментарии войдите в аккаунт</h4>
+        {% endif %}
+
 
         <h4>комментарии : </h4>
         {% for coment in coments %}

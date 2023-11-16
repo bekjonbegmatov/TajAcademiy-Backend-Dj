@@ -8,15 +8,29 @@
         <h1>Привет <span>{{ user.username }}</span> !</h1>
         <hr>
         <br>
+        {% if user_info.score == 0 %}
+            <a href='{% url "academiy:testing" %}'> Пройдите тирования <a>
+        {% else %}
+            <h3> Ваш уровень здания : <span>{{ user_status }}</span> ! Пройти <span><a  href='{% url "academiy:testing" %}' style="color: rgb(61, 179, 140);text-decoration: none;">тестирование</a></span> заново</h3>
+        {% endif %}
         <div class="row">
-            <div class="col">Ваш курсы :</div>
-            <div class="col">Ваши результаты :</div>
+            <div class="col"><h5>Ваш курсы :<h5>
+                {% for curs in user_courses %}
+                    <a href='{% url "academiy:full" curs.course.id %}' style="color: rgb(61, 179, 140);text-decoration: none;">{{ curs.course.title }}</a>
+                    <br>
+                {% endfor %}
+            </div>
+            <div class="col">
+                <h5>Ваши результаты :</h5>
+                {% for curs in user_courses %}
+                    <h6> Пройдён {{ curs.score }}</h6>
+                {% endfor %}
+            </div>
         </div>
         <hr>
         <div>
             <a href='{% url "academiy:logout" %}'>выйти</a>
-            {% comment %} <form action='{% url "logout" %}' method="post">{% csrf_token %} <button class="btn btn-light" type="submit">выйти</button></form> {% endcomment %}
+
         </div>
-        
     </div>
-{% endblock%}
+{% endblock %}

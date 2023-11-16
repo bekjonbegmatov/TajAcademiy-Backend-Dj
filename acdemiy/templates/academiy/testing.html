@@ -1,0 +1,40 @@
+{% extends "academiy/layout.html" %}
+{% load static %}
+{% block stili %}<link rel="stylesheet" href="{% static 'academiy/css/testing.css' %}">{% endblock %}
+
+{% block body %}
+    <div>
+        {% if is_end %}
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+            <i class="fa fa-check" style="font-size:200px;color:rgb(61, 179, 140);"></i><br>
+            <h2> Cпасибо за участие вы набрали : {{ can }} баллов</h2>
+            <p>ты первый можете выбрать для себя подходящий <a href='{% url "academiy:main" %}' >курс</a><p>
+        {% else %}
+            <h1>{{ test.title }}</h1>
+            <form action='{% url "academiy:testing" %}' method="post">
+                {% csrf_token %}
+                <br>
+                <p>Выберите правильный ответ</p>
+                <select name="ansver" id="">
+                    <option value="{{ test.test1 }}">{{ test.test1 }}</option>
+                    <option value="{{ test.test2 }}">{{ test.test2 }}</option>
+                    <option value="{{ test.test3 }}">{{ test.test3 }}</option>
+                </select>
+                <input type="hidden" name="correct_ansver" value="{{ test.correct_ansver }}">
+                <input type="hidden" name="last_id" value="{{ test.id }}">
+                <br><br>
+                
+                <button class="btn btn-success" type="submit">дальше</button>
+            </form>
+            <br>
+            <br>
+            <p>тест {{ test.id }}/10</p>
+        {% endif %}
+
+    </div>
+{% endblock %}

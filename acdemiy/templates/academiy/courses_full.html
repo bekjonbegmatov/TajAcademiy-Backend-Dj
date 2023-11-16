@@ -1,0 +1,28 @@
+{% extends "academiy/layout.html" %} {% load static %} {% block stili %}<link
+  rel="stylesheet"
+  href="{% static 'academiy/css/courses_full.css' %}"
+
+  />{% endblock%} 
+{% block body %}
+
+    <div class="container">
+        <h1>{{ cours.title }}</h1>
+        <img src="{{ cours.image.url }}" >
+        <br><br>
+        <p>{{ cours.desriptions|safe }}</p>
+        <br>
+        <form action='{% url "academiy:add_cource" %}' method='post'>
+            {% csrf_token %}
+            <input type="hidden" name="course_id" value="{{ cours.id }}">
+            <button type="submit" class="btn btn-outline-success">добавить курс</button>
+        </form>
+        <br><br>
+        <h2>Список уроков : </h2>
+        {% for dars in pod_curs %}
+            <div>
+                <h4><a style="color: rgb(61, 179, 140);text-decoration: none;" href='{% url "academiy:watch" dars.id %}'>{{ dars.number }}. {{ dars.title }}</a></h4>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock%}
