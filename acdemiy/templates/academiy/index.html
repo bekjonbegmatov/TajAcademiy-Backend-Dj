@@ -17,6 +17,15 @@
           <h3>{{ curs.title }}</h3>
         </a>
         {{ curs.desriptions|safe|truncatechars:150 }}
+        <p style='color:rgb(61, 179, 140)'>
+          {% if curs.score > 40 and curs.score < 60 %}
+            Средний
+          {% elif curs.score < 40 %}
+            Базовый
+          {% elif curs.score > 60 %}
+            Продвинутые
+          {% endif %}
+          </p>
       </div>
       {% endfor %}
     </div>

@@ -10,16 +10,25 @@
     <br>
     <br>
     <div class="div_courses">
-        {% for curs in courses %}
-        <div class="courses">
-          <a href='{% url "academiy:full" curs.id %}'>
-            <img src="{{ curs.image.url }}" width="600" height="425px" />
-            <br /><br />
-            <h3>{{ curs.title }}</h3>
-          </a>
-          {{ curs.desriptions|safe|truncatechars:150 }}
-        </div>
-        {% endfor %}
+      {% for curs in courses %}
+      <div class="courses">
+        <a href='{% url "academiy:full" curs.id %}'>
+          <img src="{{ curs.image.url }}" width="600" height="425px" />
+          <br /><br />
+          <h3>{{ curs.title }}</h3>
+        </a>
+        {{ curs.desriptions|safe|truncatechars:150 }}
+        <p style='color:rgb(61, 179, 140)'>
+        {% if curs.score > 40 and curs.score < 60 %}
+          Средний
+        {% elif curs.score < 40 %}
+          Базовый
+        {% elif curs.score > 60 %}
+          Продвинутые
+        {% endif %}
+        </p>
+      </div>
+      {% endfor %}
       </div>
   {% else %}
   <h1 class="main_text">Kурсы</h1>
@@ -48,6 +57,15 @@
         <h3>{{ curs.title }}</h3>
       </a>
       {{ curs.desriptions|safe|truncatechars:150 }}
+      <p style='color:rgb(61, 179, 140)'>
+        {% if curs.score > 40 and curs.score < 60 %}
+          Средний
+        {% elif curs.score < 40 %}
+          Базовый
+        {% elif curs.score > 60 %}
+          Продвинутые
+        {% endif %}
+        </p>
     </div>
     {% endfor %}
   </div>
